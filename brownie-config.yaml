@@ -1,0 +1,9 @@
+compiler:
+  solc:
+    version: 0.8.2
+    
+
+wallets:
+  from_key: ${PRIVATE_KEY}
+
+dotenv: .env
