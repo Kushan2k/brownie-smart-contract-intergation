@@ -13,3 +13,5 @@ def getLatestDeploymentStorage():
         return Storage[-1]
     else:
         return Storage.deploy({'from':getAccount()})
+    
+    # 0723582299

@@ -1,14 +1,13 @@
 from scripts.utils import getAccount,getLatestDeploymentStorage
-from brownie import Storage
+
 
 
 def main():
 
-    account=getAccount()
-    # balance=account.balance().to('ether')
-    s=Storage.deploy({'from':account},publish_source=True)
+    s=getLatestDeploymentStorage()
+    print(s.retrieve())
 
-    print(getLatestDeploymentStorage().retrieve())
+    print("Done")
 
     
     

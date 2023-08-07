@@ -1,9 +1,20 @@
+dependencies:
+  -smartcontractkit/chainlink-brownie-contracts@0.6.0
+
 compiler:
   solc:
     version: 0.8.2
+    remappings:
+      -'@chainlink=smartcontractkit/chainlink-brownie-contracts@0.6.0'
     
+networks:
+  default: sepolia
 
 wallets:
   from_key: ${PRIVATE_KEY}
 
 dotenv: .env
+
+
+
+  
