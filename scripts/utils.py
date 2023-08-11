@@ -1,4 +1,4 @@
-from brownie import network,accounts,config,Storage
+from brownie import network,accounts,config,Storage,FundMe,GetPrice
 
 def getAccount():
     
@@ -7,11 +7,33 @@ def getAccount():
     else:
         return accounts.add(config['wallets']['from_key'])
 
-def getLatestDeploymentStorage():
+contracts={
+    'fund_me':FundMe,
+    'storage':Storage,
+    'get_price':GetPrice
+}
 
-    if network.show_active()!='development':
-        return Storage[-1]
-    else:
-        return Storage.deploy({'from':getAccount()})
+def getDeployedOrDeployNewContract(name:str):
     
-    # 0723582299
+    contract=contracts.get(name,None)
+    if(contract==None):
+        return
+    
+    if(len(contract)>0):
+        return contract[-1]
+    else:
+        if(name=='get_price'):
+            c=contract.deploy(
+                config['networks'][network.show_active()]['aggregatorv3interface'],
+                {
+                'from':getAccount()
+                }
+            )
+            return c
+        else:
+            c=contract.deploy(
+                {
+                'from':getAccount()
+                }
+            )
+            return c
